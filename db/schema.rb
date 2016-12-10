@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210180127) do
+ActiveRecord::Schema.define(version: 20161210210954) do
+
+  create_table "cohorts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "location"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "max_capacity"
+    t.integer  "number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "user_profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "cohort_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cohort_id"], name: "index_user_profiles_on_cohort_id"
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
