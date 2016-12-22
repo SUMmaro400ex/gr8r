@@ -19,3 +19,10 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+#Ignore ruby mine idea shenanigans
+.idea/
+.idea/*
+
+#Ignore erd diagrams
+erd.pdf

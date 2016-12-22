@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210212645) do
+ActiveRecord::Schema.define(version: 20161222201537) do
+
+  create_table "business_entities", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "cohort_id"
+    t.index ["cohort_id"], name: "index_business_entities_on_cohort_id"
+  end
 
   create_table "cohorts", force: :cascade do |t|
     t.string   "name"
@@ -23,6 +31,25 @@ ActiveRecord::Schema.define(version: 20161210212645) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "right_role_links", force: :cascade do |t|
+    t.integer  "right_id"
+    t.integer  "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["right_id"], name: "index_right_role_links_on_right_id"
+    t.index ["role_id"], name: "index_right_role_links_on_role_id"
+  end
+
+  create_table "rights", force: :cascade do |t|
+    t.string   "code"
+    t.string   "short_description"
+    t.text     "long_description"
+    t.string   "title"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "public",            default: true
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -31,11 +58,22 @@ ActiveRecord::Schema.define(version: 20161210212645) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "user_profile_role_links", force: :cascade do |t|
+    t.integer  "user_profile_id"
+    t.integer  "role_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["role_id"], name: "index_user_profile_role_links_on_role_id"
+    t.index ["user_profile_id"], name: "index_user_profile_role_links_on_user_profile_id"
+  end
+
   create_table "user_profiles", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "cohort_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "business_entity_id"
+    t.index ["business_entity_id"], name: "index_user_profiles_on_business_entity_id"
     t.index ["cohort_id"], name: "index_user_profiles_on_cohort_id"
     t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
