@@ -10,14 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223153816) do
+ActiveRecord::Schema.define(version: 20161224170146) do
 
   create_table "business_entities", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "cohort_id"
-    t.index ["cohort_id"], name: "index_business_entities_on_cohort_id"
   end
 
   create_table "cohorts", force: :cascade do |t|
@@ -27,8 +25,10 @@ ActiveRecord::Schema.define(version: 20161223153816) do
     t.date     "end_date"
     t.integer  "max_capacity"
     t.integer  "number"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "business_entity_id"
+    t.index ["business_entity_id"], name: "index_cohorts_on_business_entity_id"
   end
 
   create_table "right_role_links", force: :cascade do |t|
